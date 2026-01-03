@@ -266,6 +266,7 @@ button {
   font-weight: 700;
   margin-bottom: var(--spacing-lg);
   color: var(--color-primary);
+  text-align: center;
 }
 
 /* ============================================
@@ -746,18 +747,22 @@ button {
 }
 
 .mixes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--spacing-lg);
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
 }
 
 .mix-card {
   background: linear-gradient(135deg, var(--color-dark-secondary) 0%, var(--color-dark-tertiary) 100%);
-  padding: var(--spacing-xl);
+  padding: var(--spacing-md);
   border-radius: var(--radius-lg);
   text-align: center;
   transition: all var(--transition-base);
   border: 1px solid rgba(212, 175, 55, 0.1);
+  flex: 1;
+  min-width: 150px;
+  max-width: 250px;
 }
 
 .mix-card:hover {
@@ -767,14 +772,14 @@ button {
 }
 
 .mix-card i {
-  font-size: var(--font-size-4xl);
+  font-size: var(--font-size-2xl);
   color: var(--color-primary);
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-xs);
 }
 
 .mix-card h4 {
-  font-size: var(--font-size-xl);
-  margin-bottom: var(--spacing-md);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-sm);
 }
 
 /* Instagram Integration */
@@ -880,7 +885,29 @@ button {
   max-width: 100% !important;
   min-width: 280px !important;
   width: calc(100% - 2px) !important;
+  width: calc(100% - 2px) !important;
   transition: all var(--transition-base);
+}
+
+.insta-crop {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  /* Default aspect ratio for instagram reel cover */
+  aspect-ratio: 9/16;
+  background: var(--color-dark-secondary);
+  border: 1px solid rgba(231, 220, 203, 0.2);
+}
+
+.insta-crop iframe {
+  width: 100% !important;
+  height: 120% !important;
+  /* Increase height to push content */
+  transform: translateY(-60px);
+  /* Move up to hide header */
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .instagram-media:hover {
@@ -988,13 +1015,13 @@ button {
 }
 
 .event-date .day {
-  font-size: var(--font-size-3xl);
+  font-size: var(--font-size-2xl);
   font-weight: 900;
   line-height: 1;
 }
 
 .event-date .month {
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xs);
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -1191,6 +1218,11 @@ button {
   font-size: var(--font-size-base);
   color: var(--color-light-tertiary);
   margin-bottom: var(--spacing-xl);
+  text-align: center;
+}
+
+.contact-info {
+  text-align: center;
 }
 
 .contact-methods {
@@ -1292,9 +1324,10 @@ button {
 }
 
 .footer-links ul {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: var(--spacing-sm);
+  justify-items: center;
 }
 
 .footer-links a {
@@ -1304,7 +1337,7 @@ button {
 
 .footer-links a:hover {
   color: var(--color-primary);
-  padding-left: var(--spacing-xs);
+  /* removed padding-left animation for centered layout */
 }
 
 .footer-bottom {
@@ -1519,9 +1552,21 @@ button {
     font-size: 0.65rem;
   }
 
-  .video-grid,
-  .mixes-grid {
+  .video-grid {
     grid-template-columns: 1fr;
+  }
+
+  .mixes-grid {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: var(--spacing-sm);
+  }
+
+  .mix-card {
+    min-width: 140px;
+    padding: var(--spacing-sm);
+    flex: 0 0 auto;
   }
 
   .event-gallery,
