@@ -89,6 +89,56 @@
   --z-modal: 1050;
   --z-popover: 1060;
   --z-tooltip: 1070;
+  --z-preloader: 9999;
+}
+
+/* ============================================
+   PRELOADER
+   ============================================ */
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-dark);
+  z-index: var(--z-preloader);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+
+#preloader.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-content {
+  text-align: center;
+}
+
+.loader-spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(212, 175, 55, 0.2);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto var(--spacing-md);
+}
+
+.loader-content h3 {
+  font-size: var(--font-size-xl);
+  color: var(--color-primary);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ============================================
@@ -1433,6 +1483,22 @@ button {
 
   .hero {
     min-height: 100svh;
+    background-attachment: scroll;
+    /* Better support for mobile */
+    background-position: center;
+  }
+
+  .mission-box {
+    padding: var(--spacing-sm);
+    margin: var(--spacing-md) 0;
+  }
+
+  .mission-box i {
+    font-size: var(--font-size-xl);
+  }
+
+  .mission-box h4 {
+    font-size: var(--font-size-lg);
   }
 
   .hero-cta {
@@ -1441,13 +1507,69 @@ button {
   }
 
   .stats-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-xs);
+  }
+
+  .stat-number {
+    font-size: var(--font-size-xl);
+  }
+
+  .stat-label {
+    font-size: 0.65rem;
   }
 
   .video-grid,
-  .mixes-grid,
-  .awards-grid {
+  .mixes-grid {
     grid-template-columns: 1fr;
+  }
+
+  .event-gallery,
+  .photo-grid,
+  .instagram-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
+  }
+
+  .awards-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-xs);
+  }
+
+  .award-card {
+    padding: var(--spacing-sm);
+  }
+
+  .award-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .award-icon i {
+    font-size: var(--font-size-lg);
+  }
+
+  .award-card h4 {
+    font-size: 0.7rem;
+    margin-bottom: 2px;
+  }
+
+  .award-card p {
+    font-size: 0.6rem;
+  }
+
+  .press-logos {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: var(--spacing-sm);
+  }
+
+  .press-item {
+    flex: 0 0 auto;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-sm);
   }
 
   .form-row {
@@ -1491,9 +1613,24 @@ button {
     font-size: 2rem;
   }
 
-  .photo-grid {
+  .photo-grid,
+  .event-gallery,
+  .instagram-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-sm);
+  }
+
+  .gallery-item {
+    max-height: 150px;
+  }
+
+  .gallery-item img {
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .instagram-media {
+    min-width: auto !important;
   }
 
   .events-grid {

@@ -247,6 +247,9 @@ npm run deploy
 - Sticky "Book DJ Paloma" button (bottom-right)
 - Optimized image sizes
 - Vertical stacking on small screens
+- Single-row layout for Stats (3 columns) and Awards
+- Horizontal scrolling for Press logos
+- Two-column grid for Image Galleries on mobile
 - Fast load times
 
 ---
@@ -309,6 +312,7 @@ Both forms (Booking & Contact) use **WhatsApp integration**:
 - Minified production build
 - Fast Vite dev server
 - Efficient animations (CSS transforms)
+- 3-Second Brand Preloader
 
 ---
 

@@ -33,13 +33,13 @@ let lastScroll = 0;
 
 window.addEventListener('scroll', () => {
   const currentScroll = window.pageYOffset;
-  
+
   if (currentScroll > 100) {
     navbar.classList.add('scrolled');
   } else {
     navbar.classList.remove('scrolled');
   }
-  
+
   lastScroll = currentScroll;
 });
 
@@ -48,13 +48,13 @@ const sections = document.querySelectorAll('section[id]');
 
 function highlightNavigation() {
   const scrollY = window.pageYOffset;
-  
+
   sections.forEach(section => {
     const sectionHeight = section.offsetHeight;
     const sectionTop = section.offsetTop - 100;
     const sectionId = section.getAttribute('id');
     const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
-    
+
     if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
       navLinks.forEach(link => link.classList.remove('active'));
       if (navLink) navLink.classList.add('active');
@@ -72,7 +72,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
     const target = document.querySelector(this.getAttribute('href'));
-    
+
     if (target) {
       const offsetTop = target.offsetTop - 80;
       window.scrollTo({
@@ -92,7 +92,7 @@ function animateCounter(element) {
   const duration = 2000;
   const increment = target / (duration / 16);
   let current = 0;
-  
+
   const updateCounter = () => {
     current += increment;
     if (current < target) {
@@ -102,7 +102,7 @@ function animateCounter(element) {
       element.textContent = target + '+';
     }
   };
-  
+
   updateCounter();
 }
 
@@ -128,11 +128,11 @@ const tabContents = document.querySelectorAll('.tab-content');
 tabButtons.forEach(button => {
   button.addEventListener('click', () => {
     const targetTab = button.getAttribute('data-tab');
-    
+
     // Remove active class from all buttons and contents
     tabButtons.forEach(btn => btn.classList.remove('active'));
     tabContents.forEach(content => content.classList.remove('active'));
-    
+
     // Add active class to clicked button and corresponding content
     button.classList.add('active');
     const targetContent = document.getElementById(targetTab);
@@ -156,13 +156,13 @@ for (let i = 1; i <= photoCount; i++) {
   photoItem.innerHTML = `
     <img src="/images/gallery-${i}.jpg" alt="DJ Paloma Event ${i}" loading="lazy" />
   `;
-  
+
   // Add click event for potential lightbox functionality
   photoItem.addEventListener('click', () => {
     // Lightbox functionality can be added here
     console.log(`Clicked photo ${i}`);
   });
-  
+
   if (photoGallery) {
     photoGallery.appendChild(photoItem);
   }
@@ -177,10 +177,10 @@ const bookingForm = document.getElementById('bookingForm');
 if (bookingForm) {
   bookingForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
+
     const formData = new FormData(bookingForm);
     const data = Object.fromEntries(formData);
-    
+
     // Create WhatsApp message
     const message = `
 *New Booking Request*
@@ -192,16 +192,16 @@ Event Date: ${data.eventDate}
 Location: ${data.location}
 Details: ${data.message || 'N/A'}
     `.trim();
-    
+
     const whatsappNumber = '233XXXXXXXXX'; // Replace with actual number
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-    
+
     // Open WhatsApp
     window.open(whatsappUrl, '_blank');
-    
+
     // Show success message
     showNotification('Booking request sent! Redirecting to WhatsApp...', 'success');
-    
+
     // Reset form
     bookingForm.reset();
   });
@@ -212,10 +212,10 @@ const contactForm = document.getElementById('contactForm');
 if (contactForm) {
   contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    
+
     const formData = new FormData(contactForm);
     const data = Object.fromEntries(formData);
-    
+
     // Create email message
     const message = `
 *New Contact Message*
@@ -224,16 +224,16 @@ Email: ${data.email}
 Subject: ${data.subject}
 Message: ${data.message}
     `.trim();
-    
+
     const whatsappNumber = '233XXXXXXXXX'; // Replace with actual number
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-    
+
     // Open WhatsApp
     window.open(whatsappUrl, '_blank');
-    
+
     // Show success message
     showNotification('Message sent! Redirecting to WhatsApp...', 'success');
-    
+
     // Reset form
     contactForm.reset();
   });
@@ -247,7 +247,7 @@ function showNotification(message, type = 'info') {
   const notification = document.createElement('div');
   notification.className = `notification notification-${type}`;
   notification.textContent = message;
-  
+
   notification.style.cssText = `
     position: fixed;
     top: 100px;
@@ -261,9 +261,9 @@ function showNotification(message, type = 'info') {
     animation: slideInRight 0.3s ease-out;
     font-weight: 600;
   `;
-  
+
   document.body.appendChild(notification);
-  
+
   setTimeout(() => {
     notification.style.animation = 'slideOutRight 0.3s ease-out';
     setTimeout(() => notification.remove(), 300);
@@ -395,14 +395,32 @@ console.log('%cWebsite by Your Development Team', 'font-size: 12px; color: #888;
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('DJ Paloma website loaded successfully!');
-  
+
+  // Preloader Logic
+  const preloader = document.getElementById('preloader');
+  if (preloader) {
+    // Force minimum 3 seconds loading time, or hide when loaded if longer
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        preloader.classList.add('hide');
+        // Allow scroll again if it was prevented
+        document.body.style.overflow = '';
+      }, 3000);
+    });
+
+    // Fallback if load event doesn't fire fast enough or already fired
+    setTimeout(() => {
+      preloader.classList.add('hide');
+    }, 5000);
+  }
+
   // Set minimum date for event booking to today
   const eventDateInput = document.getElementById('eventDate');
   if (eventDateInput) {
     const today = new Date().toISOString().split('T')[0];
     eventDateInput.setAttribute('min', today);
   }
-  
+
   // Add animation classes
   setTimeout(() => {
     document.body.classList.add('loaded');
